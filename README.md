@@ -6,6 +6,7 @@
 
 ## 📋 Current Projects
 <!--- - [ ] Curso profesional de Git y Github --->
+- [ ] Curso de Introducción a la Terminal y Línea de Comandos
 
 ## 👍 Achieved Goals
 * Prework for Linux.
