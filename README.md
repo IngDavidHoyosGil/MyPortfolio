@@ -5,9 +5,10 @@
 > "Here you can see my progress, feel free to review these folders."
 
 ## 📋 Current Projects
-<!--- - [ ] Curso profesional de Git y Github --->
+- [ ] Curso de Expresiones Regulares.
 
 ## 👍 Achieved Goals
+**Fundamentals**
 * Curso de Introducción a la Terminal y Línea de Comandos.
 
 ## 📈 GitHub Stats 
