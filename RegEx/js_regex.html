@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>JS + RegEx</title>
+        <script>
+            function validate(str) {
+                if(str.match(/^[\w]{5,}@[\w\.]{2,}\.[\w]{2,5}$/i)) {
+                    document.getElementById("button1").disabled = false;
+                    document.getElementById("in").style.backgroundColor = 'blue';
+                } else {
+                    document.getElementById("in").style.backgroundColor = 'red';
+                }
+                console.log(str);
+            }
+        </script>
+    </head>
+    <body>
+        <input type="text" name="email"
+        onkeyup="validate(this.value)" id="in">
+        <input type="button" value="send" disabled id="button1" onclick="alert('cool!')">
+    </body>    
+</html>
