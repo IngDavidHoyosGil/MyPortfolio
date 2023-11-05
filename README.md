@@ -5,11 +5,11 @@
 > "Here you can see my progress, feel free to review these folders."
 
 ## 📋 Current Projects
-- [ ] Curso de Expresiones Regulares.
 
 ## 👍 Achieved Goals
 **Fundamentals**
 * Curso de Introducción a la Terminal y Línea de Comandos.
+* Curso de Expresiones Regulares.
 
 ## 📈 GitHub Stats 
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=IngDavidHoyosGil&show_icons=true&theme=tokyonight)
