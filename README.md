@@ -11,6 +11,7 @@
 * Curso de Introducción a la Terminal y Línea de Comandos.
 * Curso de Expresiones Regulares.
 * Curso de Introducción a la Administración de Servidores Linux.
+* Curso de Administración de Servidores Linux: Manejo de Recursos.
 
 ## 📈 GitHub Stats 
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=IngDavidHoyosGil&show_icons=true&theme=tokyonight)
