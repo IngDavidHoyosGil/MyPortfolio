@@ -16,6 +16,7 @@
 **DevOps**
 * Curso de Introducción a DevOps.
 * Curso de Introducción al Despliegue de Aplicaciones.
+* Audiocurso de Fundamentos de Arquitectura de Alta Concurrencia.
 
 ## 📈 GitHub Stats 
 ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=IngDavidHoyosGil&show_icons=true&theme=tokyonight)
