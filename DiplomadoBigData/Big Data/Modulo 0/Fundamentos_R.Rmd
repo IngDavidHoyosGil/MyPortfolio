@@ -1,0 +1,69 @@
+---
+title: "Fundamentos de programación en R"
+output: html_notebook
+---
+Calculadora
+# ctrl + alt + I
+
+```{r}
+24+74-78
+747*78-50
+```
+División
+
+```{r}
+a <- 27/5
+b <- 27 %/% 5
+c <- 27%%5
+
+c
+```
+Exponenciación
+
+```{r}
+23^3
+```
+
+Raíz cuadrada
+```{r}
+23^0.5
+help(sqrt)
+sqrt(25)
+```
+
+Logaritmos
+```{r}
+log(exp(1))
+log(10, base = 3)
+exp(1)
+pi
+```
+Tipos de datos y conversión
+```{r}
+w <- TRUE
+x <- FALSE
+y <- " Hola "
+z <- "4"
+a <- 4
+b <- 4L
+```
+
+```{r}
+class(b)
+```
+
+Conversión entre tipos de datos
+| Función | Tipo al que hace conversión |
+| -- | -- |
+| as.integer() | Entero|
+| as.numeric() | Numérico |
+| as.character() | Cadena de texto |
+| as.factor() | Factor |
+| as.logical() | Lógico |
+| as.null() | NULL | 
+
+```{r}
+edad <- readline(prompt = "Ingrese su edad:")
+edad <- as.integer(edad)
+```
+
