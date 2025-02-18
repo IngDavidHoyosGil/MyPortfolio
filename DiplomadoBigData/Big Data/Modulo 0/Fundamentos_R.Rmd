@@ -67,3 +67,136 @@ edad <- readline(prompt = "Ingrese su edad:")
 edad <- as.integer(edad)
 ```
 
+**Operadores lógicos y de comparacion**
+
+| Operador | Descripción |
+| -- | -- |
+| & | y |
+| | | o |
+| ! | no |
+| == | igual a |
+| != | diferente a |
+| < | menor que |
+| > | mayor que |
+| >= | mayor o igual que |
+| <= | menor o igual que |
+
+```{r}
+#pinguino
+
+alas <- TRUE
+vuela <- FALSE
+pico <- TRUE
+```
+
+```{r}
+alas & vuela
+alas & pico
+(alas & pico) | vuela
+```
+
+Funciones y condicionales
+
+IMC - Indice de masa corporal
+
+```{r}
+imc <- function(altura_m, peso_kg){
+  indice <- peso_kg / altura_m ^ 2
+  
+  print(paste0("Su IMC es: ", round(indice, 1)))
+  
+  if (indice < 18.5){print("Tiene bajo peso.")}
+  else if (indice >= 18.5 & indice < 25) {print("Tiene peso normal.")}
+  else {print("Tiene sobrepeso.")}
+}
+```
+
+```{r}
+imc(1.75, 90)
+```
+
+Bucles iteradores
+
+```{r}
+contador <- 0
+
+while (contador < 50){
+  print(contador)
+  contador <- contador + 1
+}
+```
+ 
+```{r}
+for (count in 0:50){
+  a <- count ^ 2 
+  print(a)
+}
+
+for (count in seq(0,50,5)){
+  a <- count ^ 2 
+  print(a)
+}
+```
+
+Estructuras de datos
+
+```{r}
+is.vector(4)
+```
+```{r}
+#concatenate
+vector <- c(1, 7, 8, 9)
+vector
+str(vector)
+length(vector)
+
+```
+
+```{r}
+vector2 <- c(1,2,3,4,5,"6")
+str(vector2)
+```
+
+```{r}
+vector2 <- as.integer(vector2)
+str(vector2)
+```
+ 
+```{r}
+vector3 <- c(vector, vector2)
+vector3
+```
+
+
+```{r}
+vec1 <- 1:10
+vec2 <- 11:20
+
+vec1
+vec2
+vec1 * vec2
+sum(vec1 * vec2)
+vec1 %*% vec2
+```
+
+```{r}
+lista <- list(
+  cadena = "Nombre",
+  47,
+  TRUE,
+  FALSE,
+  sublista = list("Primero", "Segundo")
+)
+
+lista[1]
+lista$cadena
+
+lista[5]
+
+lista[[5]][2]
+
+lista$sublista[2]
+```
+
+
+
