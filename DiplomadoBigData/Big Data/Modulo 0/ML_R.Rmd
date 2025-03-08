@@ -1,0 +1,254 @@
+---
+title: "Introducción al aprendizaje computacional en R"
+output: html_notebook
+---
+Este taller guiado tiene como objetivo hacer un primer acercamiento práctico acerca del aprendizaje computacional  con R. Lo invito a interactuar y experimentar libremente con esta herramienta de aprendizaje. Cargue este .Rmd a Rstudio para poder interactuar con el.
+
+En este taller guiado veremos como:
+
+* crear particiones de entrenamiento y prueba
+* entrenar modelos para clasificación usando 2 algoritmos de Machine Learning
+* evaluar el desempeño de modelos de clasificación (primera parte)
+
+
+**Nota: Se sugiere que estudie este notebook luego de la primera clase del módulo.**
+
+## **1. Instalar y cargar paquetes**
+
+```{r}
+# Recuerde ejecutar esta linea solo una vez y después vuelva a dejarla comentada para que no re instale los pquetes al ejectutar todo el notebook
+
+#install.packages("datasets")
+#install.packages("caret")
+#install.packages("GGally")
+```
+
+```{r}
+library(datasets)
+library(caret) # Libreria de Machine Learning
+library(GGally) # Complemento gráfico para ggpairs
+```
+
+## **2. Cargar datos**
+
+En esta oportunidad vamos a cargar el dataset iris desde el paquete datasets, para mayor información de los datasets disponibles ejectute library(help = "datasets")
+
+```{r}
+data(iris) # Cargar dataset iris desde librería datasets
+
+head(iris)
+
+```
+Para recordar...
+
+El dataset Iris está conformado por 150 observaciones. En este dataset hay 3 tipos de flores identificadas en la variable Species. Para cada observación se tomaron 4 mediciones, ancho y largo del pétalo y ancho y largo del sépalo. A continuación encontrará un breve resumen estadístico.
+
+```{r}
+summary(iris)
+```
+
+
+```{r, message=FALSE}
+ggpairs(iris,                 # Data frame
+        columns = 1:4,        # Columns
+        aes(color = Species,  # Dar color por grupo
+            alpha = 0.5))     # Transparencia
+```
+
+## 3. Partición del dataset en entrenamiento y prueba
+
+Con el objetivo de crear un modelo capaz de generalizar se procede a dividir los datos en dos subconjuntos. El conjunto de **entrenamiento** y **prueba**.
+
+* El algoritmo aprenderá a partir de los datos de **entrenamiento**.
+* Los datos de prueba serán usados para evaluar el desempeño del modelo, ya que son datos desconocidos para el algoritmo.
+
+Usando una función de scikitlearn llamada train_test_split haremos un muestreo aleatorio para crear los dos subconjuntos en una sola linea de código.
+
+En este primer ejercicio vamos crear un modelo de clasificación, el objetivo es que a partir de mediciones de la flor el modelo sea capaz de predecir la especie a la cual pertenece dicha flor. Para lograr esto, le daremos inicialmente al algoritmo información acerca de las medidas de las flores y de la especie a la cual pertenecen, durante el aprendizaje el algoritmo revelerá patrones y tendencias en los datos que le permitan llegar a la etiqueta de salida. Y luego usaremos datos desconocidos para el modelo - datos de prueba - para evaluar el desempeño del modelo.
+
+**Nota:** Tenga presente que este es un ejercicio de aprendizaje supervisado ya que tenemos datos etiquetados, la columna Species es nuestra etiqueta. Al final de este módulo trabajaremos también con problemas de aprendizaje No supervisado.
+
+| Variable | Uso|
+| ----------- | ----------- |
+| Largo del sépalo | Predictora |
+| Ancho del sépalo | Predictora  |
+| Largo del petalo | Predictora  |
+| Ancho del petalo | Predictora  |
+| Especie| Objetivo|
+
+```{r}
+set.seed(20) # se define la semilla que determina la escogencia aleatoria
+
+# Se crea un vector con los indices del conjunto de entrenamiento
+
+training_index <- createDataPartition(y = iris$Species, # declaración variable objetivo
+                                            p = 0.7,  # porción del conjunto de entrenamiento
+                                            list = FALSE,
+                                      times = 1 # cantidad de veces que hace el muestreo, retorna matriz de n columnas
+                                      ) # si es TRUE retorna una lista, con FALSE retorna una matriz de una columna
+
+# Se usan los índices anteriores para generar los 2 subconjuntos
+
+# para entrenamiento se escogen los registros (filas) en training_index
+training <- iris[training_index,]
+
+# para prueba se eliminan los registros (filas) en training_index
+test <- iris[-training_index,]
+
+print(dim(training))
+print(dim(test))
+
+```
+## **4. Modelamiento**
+
+Vamos a crear nuestro primer modelo de clasificación usando algoritmos de Machine Learning:
+
+* K-Vecinos más cercanos, conocido por sus siglas en ingles KNN (K-Nearest-Neighbour)
+* Árbol de decisión, conocido por sus siglas en inglés DT (Decision Tree)
+
+
+### **4.1 Vecinos más cercanos**
+
+
+```{r}
+set.seed(105)
+
+knn <- train(Species ~ ., data = training,
+             method = "knn",
+             tuneGrid = data.frame(k = 1))
+```
+
+#### **4.1.1 Evaluación**
+
+Para evaluar el desempeño del módelo usaremos la exactitud tanto en la partición de entrenamiento como en la de prueba, recuerde que tomamos decisiones usando las métricas sobre la partición de prueba.
+
+Para evaluar el desempeño vamos a comparar las etiquetas reales contra las etiquetas predichas por el modelo. Hagamos primero nuestra primera predicción usando la función predict y el modelo entrenado knn.
+
+La exactitud se define como:
+
+$$\text{Exactitud} = \frac{\text{número de ejemplos clasificados correctamente}}{\text{ número de ejemplos}}$$
+
+Toma valores de 0 a y puede ser interpretado como el porcentaje de casos exitosamente clasificados por el modelo, entre mayor sea su valor mejor es el desempeño del modelo. Vamos a calcular la exactitud del modelo con la función accuracy_score que acepta como primer parámetro las etiquetas reales y como segundo parámetro las etiquetas predichas.
+
+```{r}
+print(knn)
+```
+
+```{r}
+y_predict_knn <- predict(knn, test)
+confusionMatrix(y_predict_knn,test$Species)$overall
+```
+Lo invito a que complete la siguiente tabla cambiando el hiperparámetro número de vecinos y colocando en la tabla el resultado obtenido. ¿Se le ocurre alguna manera de hacer este proceso de experimentación más eficiente?
+
+Discuta los resultados con sus compañeros en el foro.
+
+| Número de vecinos| Exactitud en entrenamiento| Exactitud en prueba|
+| ----------- | ----------- | ----------- | 
+|1|0.9354|0.9778|
+|3|Complete|Complete|
+|5|Complete|Complete|
+|7|Complete|Complete|
+|9|Complete|Complete|
+|11|Complete|Complete|
+|13|Complete|Complete|
+
+### **4.2 Árbol de Decisión**
+
+
+
+```{r}
+#install.packages("rpart")
+library(rpart)
+```
+
+```{r}
+set.seed(105)
+
+tree <- train(Species ~ ., data = training,
+             method = "rpart2",
+             tuneGrid = data.frame(maxdepth = 4)
+             )
+
+# De manera alternativa para escoger que variables se usan en el modelo
+
+#tree <- train(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width, data = training, method = "rpart2",              tuneGrid = data.frame(maxdepth = 4)             )
+```
+
+#### **4.2.1 Evaluación**
+
+```{r}
+tree #Muestra el rendimiento en el conjunto de enetrenamiento
+```
+```{r}
+#describe la lógica usada para hacer cada split
+tree$finalModel
+```
+
+```{r}
+# Hacer predicciones usando el conjunto de prueba y el modelo entrenado
+
+y_pred_tree <- predict(tree,test)
+# Rendimiento en el conjunto de prueba
+confusionMatrix(y_pred_tree,test$Species)$overall
+```
+Una de las bondades de los árboles de decisión es la alta interpretabilidad de los resultados. La gráfica del árbol da una gran cantidad de información acerca de la lógica empleada por el modelo para tomar decisiones.
+
+```{r}
+#install.packages("rattle")
+suppressMessages(library(rattle))
+
+fancyRpartPlot(tree$finalModel)
+```
+
+Lo invito a que complete la siguiente tabla cambiando el hiperparámetro profundidad max_depth y colocando en la tabla el resultado obtenido. EL proceso de limitar el crecimiento de un árbol de decisión se conoce como prepoda.
+¿Se le ocurre alguna manera de hacer este proceso de experimentación más eficiente?
+
+Discuta los resultados con sus compañeros en el foro.
+
+| Profundidad máxima| Exactitud en entrenamiento| Exactitud en prueba|
+| ----------- | ----------- | ----------- | 
+|1|Complete|Complete|
+|2|Complete|Complete|
+|3|Complete|Complete|
+|4|0.9292|0.9556|
+|5|Complete|Complete|
+|6|Complete|Complete|
+|7|Complete|Complete|
+
+
+Podemos entrenar un modelo de arbol de decisión usando una sintaxis ligeramente diferente, en este caso no usamos la función train sino que usamos una función propia del paquete rpart.
+
+https://fhernanb.github.io/libro_mod_pred/arb-de-regre.html
+
+```{r}
+tree2 <- rpart(Species ~  Sepal.Length + Sepal.Width + Petal.Length + Petal.Width, data = training,
+               method = "class")
+
+printcp(tree2)
+```
+```{r}
+#Parámetro que establece la importancia relativa de cada variable en el proceso de construcción del arbol
+
+tree2$variable.importance
+```
+
+
+
+## **Recursos adicionales**
+
+* Información acerca de la gráfica de correlación usando ggpais
+https://r-charts.com/correlation/ggpairs/
+* Documentación de caret -recomendado
+https://topepo.github.io/caret/
+* Más documentación de caret
+https://cran.r-project.org/web/packages/caret/caret.pdf
+* Guia de aprendizaje estadístico y automático en R
+https://rubenfcasal.github.io/aprendizaje_estadistico/
+
+
+**Créditos**
+---
+
+**Profesor:** Harry Vargas Rodríguez
+
+**Corporación Universitaria de Cataluña** - *Diplomado en Big Data y Data Science*
