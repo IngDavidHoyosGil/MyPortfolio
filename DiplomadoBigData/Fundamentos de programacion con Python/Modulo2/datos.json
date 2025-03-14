@@ -1,0 +1,33 @@
+[
+    {
+        "nombre": "juan",
+        "apellido": "perez",
+        "edad": "20",
+        "ciudad": "medellin",
+        "hobbies": [
+            "jugar videojuegos",
+            "leer",
+            "tomar fotos"
+        ]
+    },
+    {
+        "nombre": "Jhon",
+        "apellido": "mendez",
+        "edad": 40,
+        "ciudad": "bogota",
+        "hobbies": [
+            "programar",
+            "leer"
+        ]
+    },
+    {
+        "nombre": "javier",
+        "apellido": "moreno",
+        "edad": 35,
+        "ciudad": "cali",
+        "hobbies": [
+            "leer",
+            "viajar"
+        ]
+    }
+]
