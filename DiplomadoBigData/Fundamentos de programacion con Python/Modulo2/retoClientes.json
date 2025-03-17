@@ -1,0 +1,29 @@
+{
+    "1234": {
+        "nombre": "Andres",
+        "apellido": "Gutierrez",
+        "edad": 18,
+        "email": "1@prueba.com",
+        "telefono": "12345",
+        "direccion": "Calle 1",
+        "preferencial": "s"
+    },
+    "456": {
+        "nombre": "Loreno",
+        "apellido": "Falla",
+        "edad": 45,
+        "email": "2@prueba.com",
+        "telefono": "45687",
+        "direccion": "Calle 2",
+        "preferencial": "n"
+    },
+    "789": {
+        "nombre": "Miriam",
+        "apellido": "Perez",
+        "edad": 25,
+        "email": "3@prueba.com",
+        "telefono": "754564",
+        "direccion": "Calle 3",
+        "preferencial": "s"
+    }
+}
