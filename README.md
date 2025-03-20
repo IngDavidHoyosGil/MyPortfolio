@@ -5,6 +5,7 @@
 > "Here you can see my progress, feel free to review these folders."
 
 ## 📋 Current Projects
+* Diplomado en Big Data - Data Science con Python.
 
 ## 👍 Achieved Goals
 **Fundamentals**
