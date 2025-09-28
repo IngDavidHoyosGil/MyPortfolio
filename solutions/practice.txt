@@ -1,0 +1,79 @@
+SQL practice
+
+1 Escribe una query para obtener el total gastado por cada cliente en 2024, ordenado de mayor a menor.
+
+SELECT customer_id, sum(amount) as spend
+FROM orders
+WHERE YEAR(order_date) = 2024
+GROUP BY customer_id
+ORDER BY spend DESC;
+
+
+2 Obtén el salario promedio por departamento, pero solo muestra los departamentos con un salario promedio mayor a 5,000.
+
+SELECT department, AVG(salary) as salary_average
+FROM employees
+GROUP BY department
+HAVING AVG(salary) > 5000;
+
+
+3 Muestra el nombre del cliente y el total de pedidos que ha hecho. Incluye también los clientes que no tienen pedidos.
+
+SELECT c.name as customer_name, COUNT(o.order_id) as total_orders
+FROM customers as c LEFT JOIN orders as o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id, c.name
+
+
+4 Encuentra la región con mayores ventas totales.
+
+SELECT region, SUM(amount) as total_sales
+FROM sales
+GROUP BY region
+ORDER BY total_sales DESC
+LIMIT 1
+
+
+5 Escribe una query para obtener la última fecha de login por cada usuario.
+
+SELECT user_id, MAX(login_date) as last_login 
+FROM logins
+GROUP BY user_id
+
+
+Python practice
+
+6. Escribe el código para calcular la edad promedio, ignorando los valores nulos.
+
+df["age"].mean() 
+
+
+7. Convierte todos los valores de la columna a minúsculas y elimina los espacios iniciales y finales.
+
+df["text"] = df["text"].str.lower().str.strip()
+
+8. Escribe una función en Python que reciba una lista de números y devuelva otra lista con solo los números pares.
+
+def even_numbers(nums):
+    even_list = []
+    
+    for x in nums:
+        if x%2 == 0:
+            even_list.append(x)
+    
+    return even_list    
+    
+def even_numbers_simplified(nums):
+    return [x for x in nums if x%2 == 0]
+    
+    
+9. ¿Cuál es la diferencia entre un data warehouse y un data lake?
+
+Un Data Warehouse es un repositorio de datos estructurados, generalmente en bases relacionales u optimizados para análisis (ej. Redshift, Snowflake, BigQuery). Está diseñado para consultas rápidas, análisis y reportes de negocio (BI).
+
+En cambio, un Data Lake almacena datos crudos en cualquier formato (estructurados, semi o no estructurados). Suele usarse en almacenamiento barato y escalable como Amazon S3, y está orientado a Big Data, machine learning y exploración de datos antes de transformarlos.
+
+
+10. Estás construyendo un pipeline ETL y notas que en tu dataset hay fechas en formatos distintos (DD/MM/YYYY, YYYY-MM-DD, etc.)
+¿En qué parte del proceso ETL resolverías esto (Extract, Transform o Load)? ¿Por qué?
+
+La normalización de fechas se realiza en la fase Transform, ya que allí aplicamos reglas de limpieza y estandarización de datos. En esta etapa podemos convertir todos los formatos (DD/MM/YYYY, MM-DD-YYYY, etc.) a un estándar único, por ejemplo YYYY-MM-DD. De esta forma garantizamos consistencia antes de realizar la carga (Load) al sistema destino.
